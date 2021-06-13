@@ -8,7 +8,7 @@ print("\n\n---------------------------------------------------")
 print("Welcome to Word Bank !!! Boost your GRE Preparation")
 print("---------------------------------------------------\n")
 
-path_to_docx = ""
+path_to_docx = "C:\\Users\\Admin\\OneDrive\\Documents\\"
 
 def readDocx(filename):
     doc = docx.Document(filename)
@@ -35,16 +35,22 @@ def renderWords(pointer, lines):
         thickness = 2
         word = cv2.putText(word, line[0], org, font, 
                     fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
-        meaning = cv2.putText(meaning, line[1][0:len(line[1])-1], org, font, 
+        if len(line[1]) > 50:
+            line[1] = line[1][0:50] + "-\n" + line[1][50:]
+        y0, dy = 50, 65
+        for i, ln in enumerate(line[1].split('\n')):
+            y = y0 + i*dy
+            meaning = cv2.putText(meaning, ln, (50, y), font, 
                     fontScale, (0, 255, 0), thickness, cv2.LINE_AA)
         cv2.imshow('word', word)
+        key = cv2.waitKey(0)
         cv2.imshow('meaning', meaning)
         key = cv2.waitKey(0)
         if key == 52 and pointer > 0:
             pointer -= 1
         elif key == 54 and pointer < len(lines)-1:
             pointer += 1
-    cv2.destroyAllWindows()
+        cv2.destroyAllWindows()
     return pointer
 
 try:
