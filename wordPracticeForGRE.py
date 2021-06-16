@@ -10,6 +10,7 @@ print("Welcome to Word Bank !!! Boost your GRE Preparation")
 print("---------------------------------------------------\n")
 
 path_to_docx = "C:\\Users\\Admin\\OneDrive\\Documents\\"
+path_to_backup = "E:\\Word-Bank\\"
 
 def readDocx(filename):
     doc = docx.Document(filename)
@@ -53,8 +54,9 @@ def renderWords(pointer, lines):
                     fontScale, (0, 255, 0), thickness, cv2.LINE_AA)
         cv2.imshow('word', word)
         key = cv2.waitKey(0)
-        if key == 52 and pointer > 0:
-            pointer -= 1
+        if key == 52:
+            if pointer > 0:
+                pointer -= 1
             continue
         elif key == 27:
             continue
@@ -71,14 +73,14 @@ def generateBackup():
     print("Backup Not Found, Creating new backup")
     fullText = readDocx(path_to_docx + 'Word Bank.docx') 
     random.shuffle(fullText) 
-    wordFile = open(path_to_docx + "wordBank_0.txt", "w")    
+    wordFile = open(path_to_backup + "wordBank_0.txt", "w")    
     for line in fullText:
         if len(line) > 0:
             wordFile.write(line + "\n") 
     wordFile.close()
-    return path_to_docx + "wordBank_0.txt"
+    return path_to_backup + "wordBank_0.txt"
 
-f = glob.glob(path_to_docx + 'wordBank_*.txt')
+f = glob.glob(path_to_backup + 'wordBank_*.txt')
 if len(f) == 0:
     f.append(generateBackup())
 else:
@@ -90,4 +92,4 @@ pointer = renderWords(pointer, lines)
 if pointer == len(lines):
     print("Word List Complete. Thank You")
 wordFile.close()
-os.rename(f[0], path_to_docx + 'wordBank_' + str(pointer) + '.txt')
+os.rename(f[0], path_to_backup + 'wordBank_' + str(pointer) + '.txt')
