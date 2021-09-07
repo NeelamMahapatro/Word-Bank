@@ -39,10 +39,11 @@ def renderWords(pointer, lines):
         word = np.zeros((200, 1800, 3), np.uint8)
         meaning = np.zeros((200, 1800, 3), np.uint8)
         font = cv2.FONT_HERSHEY_SIMPLEX
-        org = (50, 50)
         fontScale = 2
         thickness = 2
-        word = cv2.putText(word, line[0], org, font, 
+        word = cv2.putText(word, str(pointer), (50, 50), font, 
+                    1, (255, 255, 255), thickness, cv2.LINE_AA)
+        word = cv2.putText(word, line[0], (200, 100), font, 
                     fontScale, (0, 0, 255), thickness, cv2.LINE_AA)
         break_point = 45
         if len(line[1]) > break_point:
