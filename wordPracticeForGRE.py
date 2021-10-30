@@ -33,6 +33,7 @@ def getPointer(pointer):
 
 def renderWords(pointer, lines):
     key = 0
+    num_total = len(lines)
     while key != 27 and pointer < len(lines):
         line = lines[pointer]
         line = line.split(':')
@@ -41,7 +42,7 @@ def renderWords(pointer, lines):
         font = cv2.FONT_HERSHEY_SIMPLEX
         fontScale = 2
         thickness = 2
-        word = cv2.putText(word, str(pointer), (50, 50), font, 
+        word = cv2.putText(word, str(num_total - pointer), (50, 50), font, 
                     1, (255, 255, 255), thickness, cv2.LINE_AA)
         word = cv2.putText(word, line[0], (200, 100), font, 
                     fontScale, (0, 0, 255), thickness, cv2.LINE_AA)
